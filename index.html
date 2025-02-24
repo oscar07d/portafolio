@@ -4,28 +4,31 @@
   <meta charset="UTF-8">
   <title>Mi Portafolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Hoja de estilos de Font Awesome para íconos (redes sociales) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
+    /* Animación fade-in */
+    .fade-in {
+      animation: fadeIn 1s ease forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
     /* Scroll suave */
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
     /* Reset general */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      line-height: 1.6;
-    }
-    /* Header fijo con fondo semitransparente (30% de opacidad) */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; line-height: 1.6; }
+
+    /* Header fijo con fondo semitransparente */
     #header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0,0,0,0.3);
       z-index: 1000;
       padding: 10px 20px;
     }
@@ -34,183 +37,294 @@
       justify-content: space-between;
       align-items: center;
     }
-    /* Logo: siempre se muestra la imagen "logo-light.svg" */
-    .logo a {
-      text-decoration: none;
-    }
-    .logo img {
-      height: 40px;
-      transition: opacity 0.3s ease;
-    }
-    /* Navegación en blanco */
-    nav ul {
-      list-style: none;
-      display: flex;
-    }
-    nav ul li {
-      margin-left: 20px;
-    }
+    .logo a { text-decoration: none; }
+    .logo img { height: 40px; }
+    nav ul { list-style: none; display: flex; }
+    nav ul li { margin-left: 20px; position: relative; }
     nav ul li a {
       text-decoration: none;
       color: #fff;
       font-size: 1.1rem;
-      transition: color 0.3s ease;
     }
-    nav ul li a:hover {
-      text-decoration: underline;
+    nav ul li a:hover { text-decoration: underline; }
+    nav ul li .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #fff;
+      min-width: 180px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      z-index: 1000;
     }
-    /* Todas las secciones reciben un padding-top para que el contenido no quede tapado por el header */
-    section {
-      padding-top: 70px; /* Aproximadamente la altura del header */
+    nav ul li .dropdown-content a {
+      color: #333;
+      padding: 10px 16px;
+      text-decoration: none;
+      display: block;
     }
-    /* Sección Inicio */
+    nav ul li .dropdown-content a:hover { background: #ddd; }
+    nav ul li:hover .dropdown-content { display: block; }
+
+    /* Evitar que el contenido quede tapado por el header */
+    section { padding-top: 70px; }
+
+    /* Sección Inicio (HOME): degradado azul */
     #inicio {
       height: 100vh;
-      background-image: linear-gradient(to right, #4facfe, #00f2fe);
+      background: linear-gradient(to right, #4facfe, #00f2fe);
       color: #fff;
       display: flex;
       align-items: center;
-      /* Se establece el layout en dos columnas */
-      justify-content: center;
       text-align: left;
     }
-    /* Contenedor de la sección Inicio en layout flex */
     .hero-content {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      width: 90%;
-      max-width: 1200px;
-    }
-    /* Texto de bienvenida a la izquierda */
-    .hero-text {
-      flex: 1;
-      padding-right: 20px;
-    }
-    .hero-text h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-    .hero-text p {
-      font-size: 1.2rem;
-      margin-bottom: 1.5rem;
-    }
-    .btn-gradient {
-      display: inline-block;
-      padding: 10px 20px;
-      color: #fff;
-      background-image: linear-gradient(to right, #fa709a, #fee140);
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: opacity 0.3s ease;
-    }
-    .btn-gradient:hover {
-      opacity: 0.8;
-    }
-    /* Imagen de bienvenida a la derecha */
-    .hero-svg {
-      flex: 1;
-      display: flex;
       align-items: center;
-      justify-content: center;
-    }
-    .hero-svg img {
-      max-width: 100%;
-      height: auto;
-    }
-    /* Sección Trabajos: pantalla completa con padding modificado */
-    #trabajos {
-      min-height: 100vh;
-      background: #fff;
-      color: #333;
-      padding: 6rem 0;
-    }
-    .trabajos-container {
       width: 90%;
       max-width: 1200px;
       margin: 0 auto;
     }
-    .trabajos-container h2 {
-      text-align: center;
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-    .portfolio {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      grid-gap: 1.5rem;
-      margin-top: 1rem;
-    }
-    .portfolio-item {
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s;
-    }
-    .portfolio-item:hover {
-      transform: scale(1.02);
-    }
-    .portfolio-item img,
-    .portfolio-item iframe {
-      width: 100%;
-      display: block;
-    }
-    .item-info {
-      padding: 1rem;
-    }
-    .item-info h3 {
-      margin-bottom: 0.5rem;
-      font-size: 1.5rem;
-    }
-    .item-info p {
-      font-size: 1rem;
-      color: #666;
-    }
-    /* Sección Sobre mí */
+    .hero-text { flex: 1; padding-right: 20px; }
+    .hero-text h1 { font-size: 3rem; margin-bottom: 1rem; }
+    .hero-text p { font-size: 1.2rem; margin-bottom: 1.5rem; }
+    .hero-svg { flex: 1; display: flex; justify-content: center; align-items: center; }
+    .hero-svg img { max-width: 100%; height: auto; }
+
+    /* Sección Sobre mí: fondo blanco */
     #about {
-      height: 100vh;
-      background-image: linear-gradient(to right, #4facfe, #00f2fe);
-      color: #fff;
+      background: #fff;
+      color: #333;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       padding: 2rem;
     }
-    #about .container {
-      max-width: 800px;
+
+    /* Sección Banners: degradado azul, padding inicial 25rem que cambia a 6rem */
+    #banners {
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      color: #fff;
+      min-height: 100vh;
+      padding: 25rem 2rem;
+      transition: padding 2s ease;
     }
-    #about h2 {
-      font-size: 2.5rem;
+    #banners.selected { padding: 6rem 2rem; }
+    .banners-header {
+      display: flex;
+      flex-direction: column; /* Título arriba, select debajo */
+      align-items: center;
       margin-bottom: 1rem;
+      transition: all 2s ease;
     }
-    #about p {
-      font-size: 1.2rem;
+    .banners-header .banners-title { font-size: 2.5rem; }
+    .banners-header select {
+      margin-top: 10px;
+      font-size: 1rem;
+      padding: 5px 10px;
+      border-radius: 8px;
+      border: 1px solid #fff;
+      background: transparent;
+      color: #fff;
+      transition: background 0.5s ease;
     }
-    /* Sección Contacto */
-    #contact {
+    .banners-header select:hover {
+      background: linear-gradient(to right, #fa709a, #fee140);
+    }
+    .banners-header select option { color: #FFA500; }
+    .banners-header select option.placeholder { color: #fff; }
+
+    /* Sección Publicaciones de Muro (Carrusel de imágenes): fondo blanco, padding 25rem */
+    #publicaciones {
       background: #fff;
       color: #333;
+      min-height: 100vh;
+      padding: 25rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Subir solo el título (h2) de esta sección */
+    #publicaciones h2 {
       text-align: center;
-      padding: 100px 0;
+      position: relative;
+      top: -205px;
     }
-    #contact h2 {
-      font-size: 2.5rem;
+    /* Carrusel de imágenes */
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+    .carousel-slider {
+      display: flex;
+      transition: transform 2s ease;
+    }
+    .carousel-item {
+      min-width: 300px;
+      height: 300px;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+    .carousel-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+    /* Botones solo en escritorio */
+    .carousel-prev, .carousel-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      border: none;
+      font-size: 2rem;
+      padding: 0.5rem;
+      cursor: pointer;
+      z-index: 100;
+    }
+    .carousel-prev { left: 10px; }
+    .carousel-next { right: 10px; }
+    @media (max-width: 768px) { .carousel-prev, .carousel-next { display: none; } }
+
+    /* Sección Intros: Carrusel de videos y espacio para imagen SVG */
+    #intros {
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      color: #fff;
+      min-height: 100vh;
+      padding: 25rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    /* Título de la sección Intros */
+    #intros h2 {
+      text-align: center;
       margin-bottom: 1rem;
+      font-size: 2.5rem;
+      position: relative;
+      top: -205px;
     }
-    #contact p {
-      font-size: 1.2rem;
+    .intros-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      width: 100%;
     }
-    /* Contenedor general */
-    .container {
-      width: 90%;
-      max-width: 1200px;
-      margin: 0 auto;
+    .video-carousel {
+      flex: 1 1 60%;
+      position: relative;
+      overflow: hidden;
+      margin-right: 20px;
     }
+    .video-slider {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    .video-item {
+      flex: 0 0 100%;
+      height: 300px;
+    }
+    .video-item iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .video-prev, .video-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      border: none;
+      font-size: 2rem;
+      padding: 0.5rem;
+      cursor: pointer;
+      z-index: 100;
+    }
+    .video-prev { left: 10px; }
+    .video-next { right: 10px; }
+    .video-dots {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .video-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin: 0 5px;
+      background: #ccc;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .video-dot.active { background: #fa709a; }
+    .svg-image {
+      flex: 1 1 35%;
+      text-align: center;
+      padding: 10px;
+    }
+    .svg-image img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Sección Otros Proyectos: fondo blanco con padding 15rem */
+    #otros {
+      background: #fff;
+      color: #333;
+      min-height: 100vh;
+      padding: 15rem 2rem;
+    }
+    /* Sección Contacto: degradado azul con íconos de redes sociales */
+    #contact {
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    #contact h2 { margin-bottom: 1rem; }
+    #contact p { margin-bottom: 20px; }
+    .social-links {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .social-icon {
+      display: inline-block;
+      margin: 0 10px;
+      transition: transform 0.3s ease;
+    }
+    .social-icon i {
+      font-size: 21px;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      border: 1px solid #fff;
+      border-radius: 50%;
+      color: #fff;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .social-icon:hover i {
+      background: linear-gradient(to right, #fa709a, #fee140);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    /* Contenedor común */
+    .container { width: 90%; max-width: 1200px; margin: 0 auto; }
     /* Footer */
     footer {
       background: #333;
@@ -218,10 +332,55 @@
       text-align: center;
       padding: 20px 0;
     }
+
+    /* Modal para imagen ampliada del carrusel */
+    #modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      background: rgba(0,0,0,0.8);
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+    #modal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    /* Ajuste de tamaño para las imágenes en la sección Banners */
+    .banner-item {
+      display: inline-block;
+      margin: 10px;
+    }
+    .banner-image {
+      max-width: 500px; /* Banner más grande */
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      border-radius: 10px; /* Banners con esquinas redondeadas */
+      display: block;
+      margin: 0 auto;
+    }
+    .profile-image {
+      max-width: 150px; /* Tamaño para la imagen Perfil */
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      border-radius: 50%; /* Perfil redondo */
+      display: block;
+      margin: 0 auto;
+    }
   </style>
 </head>
 <body>
-  <!-- Header fijo superpuesto -->
+  <!-- Header fijo -->
   <header id="header">
     <div class="top-bar">
       <div class="logo">
@@ -232,89 +391,413 @@
       <nav>
         <ul>
           <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#trabajos">Trabajos</a></li>
-          <li><a href="#about">Sobre mí</a></li>
+          <li><a href="#about">Sobre mi</a></li>
+          <li class="dropdown">
+            <a href="#banners">Trabajos</a>
+            <div class="dropdown-content">
+              <a href="#banners">Banners</a>
+              <a href="#publicaciones">Publicaciones de Muro</a>
+              <a href="#intros">Intros</a>
+              <a href="#otros">Otros Proyectos</a>
+            </div>
+          </li>
           <li><a href="#contact">Contacto</a></li>
         </ul>
       </nav>
     </div>
   </header>
-  
+
   <!-- Sección Inicio -->
   <section id="inicio">
     <div class="hero-content">
       <div class="hero-text">
         <h1>Bienvenido a Mi Portafolio</h1>
         <p>Descubre mis proyectos y experiencia.</p>
-        <a href="#trabajos" class="btn-gradient">Ver Trabajos</a>
       </div>
       <div class="hero-svg">
-        <!-- Imagen SVG de bienvenida; asegúrate de tener "Bienvenida.svg" en la misma carpeta -->
         <img src="Ilustraciones/Bienvenida.svg" alt="Bienvenida">
       </div>
     </div>
   </section>
-  
-  <!-- Sección Trabajos -->
-  <section id="trabajos">
-    <div class="trabajos-container">
-      <h2>Mis Trabajos</h2>
-      <div class="portfolio">
-        <!-- Proyecto 1 -->
-        <div class="portfolio-item">
-          <img src="https://via.placeholder.com/600x400" alt="Proyecto 1">
-          <div class="item-info">
-            <h3>Proyecto 1</h3>
-            <p>Descripción breve del proyecto 1.</p>
+
+  <!-- Sección Sobre mí -->
+  <section id="about">
+    <div class="container">
+      <h2>Sobre mi</h2>
+      <p>Soy [Tu Nombre], un apasionado diseñador y desarrollador enfocado en crear experiencias digitales innovadoras.</p>
+    </div>
+  </section>
+
+  <!-- Sección Banners -->
+  <section id="banners">
+    <div class="container">
+      <div class="banners-header" id="bannersHeader">
+        <span class="banners-title">Banners</span>
+        <select id="platformSelect" class="platform-select">
+          <option value="" class="placeholder">Seleccione plataforma</option>
+          <option value="Facebook">Facebook</option>
+          <option value="YouTube">YouTube</option>
+        </select>
+      </div>
+      <div id="bannersGallery">
+        <!-- Se cargarán dinámicamente los banners según la opción seleccionada -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Publicaciones de Muro (Carrusel de imágenes) -->
+  <section id="publicaciones">
+    <div class="container">
+      <h2>Publicaciones de Muro</h2>
+      <div class="carousel-container">
+        <button class="carousel-prev">&#10094;</button>
+        <div class="carousel-slider" id="carouselSlider">
+          <!-- Los items se insertarán dinámicamente -->
+        </div>
+        <button class="carousel-next">&#10095;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Intros (Carrusel de videos y espacio para imagen SVG) -->
+  <section id="intros">
+    <div class="container">
+      <h2>Intros</h2>
+      <div class="intros-container">
+        <div class="video-carousel">
+          <button class="video-prev">&#10094;</button>
+          <div class="video-slider" id="videoSlider">
+            <!-- Los videos se insertarán dinámicamente -->
+          </div>
+          <button class="video-next">&#10095;</button>
+          <div class="video-dots" id="videoDots">
+            <!-- Los puntos se generarán dinámicamente -->
           </div>
         </div>
-        <!-- Proyecto 2 -->
-        <div class="portfolio-item">
-          <iframe src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
-          <div class="item-info">
-            <h3>Proyecto 2</h3>
-            <p>Descripción breve del proyecto 2.</p>
-          </div>
+        <div class="svg-image">
+          <img src="Ilustraciones/video.svg" alt="Imagen SVG">
         </div>
-        <!-- Proyecto 3 -->
-        <div class="portfolio-item">
-          <img src="https://via.placeholder.com/600x400" alt="Proyecto 3">
-          <div class="item-info">
-            <h3>Proyecto 3</h3>
-            <p>Descripción breve del proyecto 3.</p>
-          </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Otros Proyectos -->
+  <section id="otros">
+    <div class="container">
+      <h2 style="text-align: center;">Videos en Youtube</h2>
+      <br><br>
+      <div style="display: flex; gap: 40px; align-items: flex-start;">
+        <!-- Columna izquierda: Texto con saltos de línea -->
+        <div style="flex: 1; padding: 10px; text-align: justify;">
+          <p>
+            Con más de 11 años de trayectoria en YouTube, mi canal se ha consolidado como un espacio dedicado a la creatividad y el entretenimiento. Ofrezco una amplia gama de contenido divertido, que incluye desde podcasts y videos cómicos hasta experiencias ASMR únicas.
+            <br><br>
+            Mi especialidad reside en la exploración del audio en formatos complejos, una pasión particularmente visible en mi contenido ASMR. Este formato no solo busca proporcionar bienestar al espectador, sino que también sirve como escaparate para mi dominio del audio.
+            <br><br>
+            A través de mi canal, me propongo conectar con la audiencia, proyectando ideas y compartiendo conocimiento de manera entretenida y accesible. Esta larga trayectoria en YouTube se enriquece con mi formación académica en Dirección y Producción de Medios Audiovisuales – casi cinco años de estudio que me permiten fusionar la experiencia práctica con el conocimiento teórico, resultando en contenido de alta calidad y con una visión profesional.
+          </p>
         </div>
-        <!-- Proyecto 4 -->
-        <div class="portfolio-item">
-          <img src="https://via.placeholder.com/600x400" alt="Proyecto 4">
-          <div class="item-info">
-            <h3>Proyecto 4</h3>
-            <p>Descripción breve del proyecto 4.</p>
+        <!-- Columna derecha: Dos playlists en dos filas -->
+        <div style="flex: 1; padding: 10px;">
+          <div style="margin-bottom: 20px;">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/videoseries?list=PLAmXMrHo-Wix4OtCBZLe1lvgAZxvkTFSW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div>
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/videoseries?list=PLAmXMrHo-WixxL-LZ069vL8wSPMXfcWyj" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
         </div>
       </div>
     </div>
   </section>
-  
-  <!-- Sección Sobre mí -->
-  <section id="about">
-    <div class="container">
-      <h2>Sobre mí</h2>
-      <p>Soy [Tu Nombre], un apasionado diseñador y desarrollador enfocado en crear experiencias digitales innovadoras.</p>
-    </div>
-  </section>
-  
-  <!-- Sección de Contacto -->
+
+  <!-- Sección Contacto -->
   <section id="contact">
     <div class="container">
       <h2>Contacto</h2>
-      <p>¿Tienes un proyecto en mente? Escríbeme a: <a href="mailto:tuemail@example.com">tuemail@example.com</a></p>
+      <p>Si el icono de <strong>E-Mail</strong> no funciona, envia tu correo a: <a href="mailto:tuemail@example.com" style="color: #fff; text-decoration: underline;">oscar07dcontacto@gmail.com</a></p>
+      <div class="social-links">
+        <a href="https://www.facebook.com/oscar07dstudio" target="_blank" class="social-icon">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.youtube.com/oscar07d" target="_blank" class="social-icon">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://www.instagram.com/oscar07d" target="_blank" class="social-icon">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://co.linkedin.com/in/oscar07d" target="_blank" class="social-icon">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="oscar07dcontacto@gmail.com" target="_blank" class="social-icon">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
     </div>
   </section>
-  
+
   <!-- Footer -->
   <footer>
-    <p>&copy; 2025 Mi Portafolio. Todos los derechos reservados.</p>
+    <p>&copy; 2024 OSCAR 07D Studios. Todos los derechos reservados.</p>
   </footer>
+
+  <!-- Modal para imagen ampliada del carrusel -->
+  <div id="modal">
+    <img id="modalImg" src="" alt="Imagen Ampliada">
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // --- Sección Banners ---
+    var bannersData = {
+      "Facebook": [
+        { banner: "Imagenes/Banners/Banner Facebook Jòvenes de Honra.png", profile: "Imagenes/Fotos de Perfil/Perfil Jòvenes de Honra.png" },
+        { banner: "Imagenes/Banners/Banner Facebook NV.png", profile: "Imagenes/Fotos de Perfil/Perfil NV5.png" },
+        { banner: "Imagenes/Banners/Banner Facebook Radio Honra.png", profile: "Imagenes/Fotos de Perfil/Perfil Radio Honra.png" },
+        { banner: "Imagenes/Banners/Banner Facebook.png", profile: "Imagenes/Fotos de Perfil/Perfil C3.png" }
+      ],
+      "YouTube": [
+        { banner: "Imagenes/Banners/Banner YouTube.png" },
+        { banner: "Imagenes/Banners/Banner Youtube2.png" },
+        { banner: "Imagenes/Banners/banner 2023.jpg" },
+        { banner: "Imagenes/Banners/Banner de YouTube 2021.jpg" }
+      ]
+    };
+
+    function updateBannersGallery(platform) {
+      var gallery = document.getElementById("bannersGallery");
+      gallery.innerHTML = "";
+      var items = bannersData[platform];
+      if(items && items.length) {
+        if(platform === "Facebook") {
+          items.forEach(function(item) {
+            // Creamos un contenedor en dos columnas para Facebook
+            var row = document.createElement("div");
+            row.style.display = "flex";
+            row.style.justifyContent = "center";
+            row.style.alignItems = "center";
+            row.style.gap = "40px";
+            row.style.marginBottom = "20px"; // Espacio entre filas
+
+            // Columna para la imagen de Banner
+            var colBanner = document.createElement("div");
+            colBanner.style.flex = "1";
+            colBanner.style.textAlign = "center";
+            var imgBanner = document.createElement("img");
+            imgBanner.className = "banner-image fade-in";
+            imgBanner.src = item.banner;
+            imgBanner.alt = platform + " Banner";
+            imgBanner.style.cursor = "pointer";
+            imgBanner.addEventListener("click", function() {
+              openModal(item.banner);
+            });
+            colBanner.appendChild(imgBanner);
+
+            // Columna para la imagen de Perfil
+            var colProfile = document.createElement("div");
+            colProfile.style.flex = "1";
+            colProfile.style.textAlign = "center";
+            var imgProfile = document.createElement("img");
+            imgProfile.className = "profile-image fade-in";
+            imgProfile.src = item.profile;
+            imgProfile.alt = platform + " Perfil";
+            imgProfile.style.cursor = "pointer";
+            imgProfile.addEventListener("click", function() {
+              openModal(item.profile);
+            });
+            colProfile.appendChild(imgProfile);
+
+            row.appendChild(colBanner);
+            row.appendChild(colProfile);
+            gallery.appendChild(row);
+          });
+        } else if (platform === "YouTube") {
+          // Para YouTube, agrupamos las imágenes en filas de 2 columnas
+          for(var i = 0; i < items.length; i += 2) {
+            var row = document.createElement("div");
+            row.style.display = "flex";
+            row.style.justifyContent = "center";
+            row.style.alignItems = "center";
+            row.style.gap = "40px";
+            row.style.marginBottom = "20px"; // Espacio entre filas
+
+            // Primera columna
+            var col1 = document.createElement("div");
+            col1.style.flex = "1";
+            col1.style.textAlign = "center";
+            var img1 = document.createElement("img");
+            img1.className = "banner-image fade-in";
+            img1.src = items[i].banner;
+            img1.alt = platform + " Banner";
+            img1.style.cursor = "pointer";
+            img1.addEventListener("click", function() {
+              openModal(this.src);
+            });
+            col1.appendChild(img1);
+            row.appendChild(col1);
+
+            // Segunda columna, si existe
+            if(i + 1 < items.length) {
+              var col2 = document.createElement("div");
+              col2.style.flex = "1";
+              col2.style.textAlign = "center";
+              var img2 = document.createElement("img");
+              img2.className = "banner-image fade-in";
+              img2.src = items[i+1].banner;
+              img2.alt = platform + " Banner";
+              img2.style.cursor = "pointer";
+              img2.addEventListener("click", function() {
+                openModal(this.src);
+              });
+              col2.appendChild(img2);
+              row.appendChild(col2);
+            }
+            gallery.appendChild(row);
+          }
+        }
+      } else {
+        gallery.innerHTML = "<p>No hay elementos para " + platform + ".</p>";
+      }
+    }
+
+    var platformSelect = document.getElementById("platformSelect");
+    var bannersSection = document.getElementById("banners");
+    var bannersHeader = document.getElementById("bannersHeader");
+    platformSelect.addEventListener("change", function() {
+      if (this.value !== "") {
+        updateBannersGallery(this.value);
+        bannersSection.classList.add("selected");
+        bannersHeader.classList.add("selected");
+      } else {
+        document.getElementById("bannersGallery").innerHTML = "";
+        bannersSection.classList.remove("selected");
+        bannersHeader.classList.remove("selected");
+      }
+    });
+
+    // --- Sección Publicaciones de Muro (Carrusel de imágenes) ---
+    var publicacionesData = [
+      "Imagenes/Post/publicacines.png",
+      "Imagenes/Post/Palabritas.png",
+      "Imagenes/Post/Portada Podcast.png",
+      "Imagenes/Post/fiesta de 2022 - MIVH.jpg",
+      "Imagenes/Post/versiculos.png",
+      "Imagenes/Post/redes lilia moreno.jpg",
+      "Imagenes/Post/redes dia de la mujer.png"
+    ];
+    var carouselSlider = document.getElementById("carouselSlider");
+    var currentIndex = 0;
+
+    function populateCarousel() {
+      carouselSlider.innerHTML = "";
+      // Duplicamos el arreglo para simular un bucle
+      var loopData = publicacionesData.concat(publicacionesData);
+      loopData.forEach(function(src, index) {
+        var div = document.createElement("div");
+        div.className = "carousel-item";
+        var img = document.createElement("img");
+        img.src = src;
+        img.alt = "Publicación " + (index + 1);
+        img.addEventListener("click", function() {
+          openModal(src);
+        });
+        img.classList.add("fade-in");
+        div.appendChild(img);
+        carouselSlider.appendChild(div);
+      });
+    }
+    populateCarousel();
+
+    function updateCarousel() {
+      var offset = -currentIndex * 310; // 300px width + 10px margin
+      carouselSlider.style.transform = "translateX(" + offset + "px)";
+    }
+
+    var carouselPrev = document.querySelector(".carousel-prev");
+    var carouselNext = document.querySelector(".carousel-next");
+    carouselPrev.addEventListener("click", function() {
+      currentIndex = (currentIndex === 0) ? publicacionesData.length - 1 : currentIndex - 1;
+      updateCarousel();
+    });
+    carouselNext.addEventListener("click", function() {
+      currentIndex = (currentIndex === publicacionesData.length - 1) ? 0 : currentIndex + 1;
+      updateCarousel();
+    });
+
+    // Auto-slide: se mueve automáticamente cada 5 segundos
+    setInterval(function() {
+      currentIndex = (currentIndex === publicacionesData.length - 1) ? 0 : currentIndex + 1;
+      updateCarousel();
+    }, 5000);
+
+    // --- Sección Intros (Carrusel de videos y espacio para imagen SVG) ---
+    var introsVideos = [
+      "https://www.youtube.com/embed/OVpHwfVDL_0?si=4avAvvT_OTcBMxrf",
+      "https://www.youtube.com/embed/LDKw9iMGZkc?si=CB_5WZPkucPT6LLS",
+      "https://www.youtube.com/embed/Gl0_NuaT0QA?si=r_QUI96V9qEXouJQ",
+      "https://www.youtube.com/embed/5W-4LMsO_YA?si=2LyPpt7GTZCLiW8p"
+    ];
+    var videoSlider = document.getElementById("videoSlider");
+    var videoDotsContainer = document.getElementById("videoDots");
+    var currentVideoIndex = 0;
+
+    function populateVideos() {
+      videoSlider.innerHTML = "";
+      videoDotsContainer.innerHTML = "";
+      introsVideos.forEach(function(url, index) {
+        var div = document.createElement("div");
+        div.className = "video-item";
+        var iframe = document.createElement("iframe");
+        iframe.src = url;
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+        div.appendChild(iframe);
+        videoSlider.appendChild(div);
+
+        var dot = document.createElement("span");
+        dot.className = "video-dot" + (index === 0 ? " active" : "");
+        dot.addEventListener("click", function() {
+          currentVideoIndex = index;
+          updateVideoSlider();
+        });
+        videoDotsContainer.appendChild(dot);
+      });
+    }
+    populateVideos();
+
+    function updateVideoSlider() {
+      var offset = -currentVideoIndex * 100;
+      videoSlider.style.transform = "translateX(" + offset + "%)";
+      var dots = document.querySelectorAll(".video-dot");
+      dots.forEach(function(dot, index) {
+        dot.classList.toggle("active", index === currentVideoIndex);
+      });
+    }
+
+    var videoPrev = document.querySelector(".video-prev");
+    var videoNext = document.querySelector(".video-next");
+    videoPrev.addEventListener("click", function() {
+      currentVideoIndex = (currentVideoIndex === 0) ? introsVideos.length - 1 : currentVideoIndex - 1;
+      updateVideoSlider();
+    });
+    videoNext.addEventListener("click", function() {
+      currentVideoIndex = (currentVideoIndex === introsVideos.length - 1) ? 0 : currentVideoIndex + 1;
+      updateVideoSlider();
+    });
+
+    // --- Sección Contacto (No requiere JS para íconos) ---
+
+    // --- Modal para imagen ampliada del carrusel ---
+    var modal = document.getElementById("modal");
+    var modalImg = document.getElementById("modalImg");
+    function openModal(src) {
+      modalImg.src = src;
+      modal.style.display = "flex";
+    }
+    modal.addEventListener("click", function(e) {
+      if(e.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  </script>
 </body>
 </html>
