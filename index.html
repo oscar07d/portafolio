@@ -4,12 +4,33 @@
   <meta charset="UTF-8">
   <title>OSCAR 07D Studios</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Importar la fuente Roboto -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
   <!-- Favicon -->
   <link rel="icon" href="Ilustraciones/logo-light.svg" type="image/x-icon">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    /* Animación fade-in para elementos */
+    /* Aplicar Roboto en todo el sitio */
+    * {
+      font-family: 'Roboto', sans-serif;
+      box-sizing: border-box;
+    }
+
+    /* Reset y scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      /* Color de texto general para secciones de fondo blanco */
+      color: #333;
+    }
+
+    /* Animación fade-in */
     .fade-in {
       animation: fadeIn 1s ease forwards;
     }
@@ -18,24 +39,15 @@
       to   { opacity: 1; }
     }
 
-    /* Reset y scroll */
-    * {
-      margin: 0; 
-      padding: 0; 
-      box-sizing: border-box;
-    }
-    html {
-      scroll-behavior: smooth;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-    }
+    /* =================== */
+    /* ESTILOS GENERALES   */
+    /* =================== */
 
     /* Header fijo */
     #header {
       position: fixed;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       width: 100%;
       padding: 10px 20px;
       display: flex;
@@ -44,9 +56,7 @@
       background: rgba(0,0,0,0.3);
       z-index: 1000;
     }
-    .logo img {
-      height: 40px;
-    }
+    .logo img { height: 40px; }
 
     /* Navegación de escritorio */
     nav.desktop-nav {
@@ -63,24 +73,19 @@
       font-size: 1.1rem;
       transition: color 0.3s ease;
     }
-    nav.desktop-nav ul li a:hover {
-      color: #fa709a;
-    }
-    nav.desktop-nav li.dropdown {
-      position: relative;
-    }
+    nav.desktop-nav ul li a:hover { color: #fa709a; }
+    nav.desktop-nav li.dropdown { position: relative; }
     nav.desktop-nav li.dropdown .dropdown-content {
       display: none;
       position: absolute;
-      top: 100%; left: 0;
+      top: 100%;
+      left: 0;
       background: #fff;
       min-width: 180px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
       z-index: 1000;
     }
-    nav.desktop-nav li.dropdown:hover .dropdown-content {
-      display: block;
-    }
+    nav.desktop-nav li.dropdown:hover .dropdown-content { display: block; }
     nav.desktop-nav li.dropdown .dropdown-content a {
       display: block;
       padding: 10px 16px;
@@ -89,16 +94,10 @@
       font-size: 1rem;
       transition: background 0.3s ease;
     }
-    nav.desktop-nav li.dropdown .dropdown-content a:hover {
-      background: #ddd;
-    }
-    @media (max-width:768px) {
-      nav.desktop-nav {
-        display: none;
-      }
-    }
+    nav.desktop-nav li.dropdown .dropdown-content a:hover { background: #ddd; }
+    @media (max-width:768px) { nav.desktop-nav { display: none; } }
 
-    /* Botón hamburguesa: solo en móviles */
+    /* Botón hamburguesa (móvil) */
     .hamburger {
       display: none;
     }
@@ -112,26 +111,25 @@
       }
     }
     .hamburger span {
-      width: 25px; 
+      width: 25px;
       height: 3px;
       background: #fff;
       transition: all 0.3s ease;
     }
 
-    /* Menú overlay para móviles con transición circular usando clip-path */
+    /* Menú overlay (móvil) */
     #menu-overlay {
       position: fixed;
-      top: 0; right: 0;
-      width: 100%; 
+      top: 0;
+      right: 0;
+      width: 100%;
       height: 100%;
       background: #333;
       clip-path: circle(0% at top right);
       transition: clip-path 0.6s ease-out;
       z-index: 1050;
     }
-    #menu-overlay.active {
-      clip-path: circle(150% at top right);
-    }
+    #menu-overlay.active { clip-path: circle(150% at top right); }
     #menu-overlay nav {
       display: flex;
       flex-direction: column;
@@ -151,13 +149,10 @@
     #menu-overlay nav ul li a {
       text-decoration: none;
       color: #fff;
-      font-size: 1rem; 
+      font-size: 1rem;
       transition: color 0.3s ease;
     }
-    #menu-overlay nav ul li a:hover {
-      color: #fa709a;
-    }
-    /* Dropdown en overlay */
+    #menu-overlay nav ul li a:hover { color: #fa709a; }
     #menu-overlay nav ul li.dropdown ul.dropdown-content {
       display: none;
       list-style: none;
@@ -169,19 +164,18 @@
       display: block;
     }
 
-    /* Secciones generales */
-    section {
-      padding-top: 70px;
-    }
-    .container {
-      width: 90%; 
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+    /* =================== */
+    /* SECCIONES           */
+    /* =================== */
 
-    /* Sección Inicio */
+    /* Cada sección tendrá fondo y color de títulos/elementos según su fondo:
+       - Fondo degradado azul → títulos y botones en blanco.
+       - Fondo blanco → títulos y botones en negro.
+    */
+
+    /* Sección Inicio (Fondo degradado azul) */
     #inicio {
-      height: 100vh;
+      min-height: 100vh;
       background: linear-gradient(to right, #4facfe, #00f2fe);
       color: #fff;
       display: flex;
@@ -191,105 +185,82 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: 90%; 
+      width: 90%;
       max-width: 1200px;
       margin: 0 auto;
     }
     .hero-text {
-      flex: 1; 
+      flex: 1;
       padding-right: 20px;
     }
+    /* Para fondo azul, títulos en blanco */
     .hero-text h1 {
       font-size: 3rem;
       margin-bottom: 1rem;
+      color: #fff;
+      font-weight: 900;
+      text-align: center;
     }
     .hero-text p {
       font-size: 1.2rem;
       margin-bottom: 1.5rem;
+      text-align: center;
+      color: #fff;
     }
-    .hero-svg {
-      flex: 1; 
-      display: flex; 
-      justify-content: center; 
-      align-items: center;
-    }
-    .hero-svg img {
-      max-width: 100%; 
-      height: auto;
-    }
+    .hero-svg { flex: 1; display: flex; justify-content: center; align-items: center; }
+    .hero-svg img { max-width: 100%; height: auto; }
     @media (max-width:768px) {
-      .hero-content {
-        flex-direction: column;
-        text-align: center;
-      }
-      .hero-text {
-        padding-right: 0;
-      }
+      .hero-content { flex-direction: column; text-align: center; }
+      .hero-text { padding-right: 0; }
     }
 
-    /* Sección Habilidades (porcentajes) */
+    /* Sección Mis Habilidades (Fondo blanco → títulos y botones en negro) */
     #skills {
-      background: #f9f9f9;
+      background: #fff;
       color: #333;
       min-height: 100vh;
       padding: 10rem 2rem;
     }
-    #skills .container {
-      text-align: center;
-    }
-    #skills h2 {
-      margin-bottom: 2rem;
-      font-size: 2rem;
-    }
+    #skills .container { text-align: center; }
+    #skills h2 { margin-bottom: 2rem; font-size: 2rem; color: #000; }
     .skills-wrapper {
-      display: flex; 
-      flex-wrap: wrap; 
+      display: flex;
+      flex-wrap: wrap;
       justify-content: center;
       gap: 40px;
     }
-    .skill {
-      text-align: center;
-      max-width: 180px;
-    }
+    .skill { text-align: center; max-width: 180px; }
     .circle {
-      --percent: 0.90;
-      width: 120px; 
-      height: 120px; 
+      --percent: 0.65;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       background: conic-gradient(#fa709a 0deg calc(var(--percent)*360deg), #eee calc(var(--percent)*360deg) 360deg);
-      display: flex; 
-      align-items: center; 
+      display: flex;
+      align-items: center;
       justify-content: center;
       margin: 0 auto 1rem auto;
       position: relative;
       transition: background 1s ease;
     }
     .circle .inner-text {
-      font-size: 1.2rem; 
+      font-size: 1.2rem;
       color: #333;
       background: #fff;
       border-radius: 50%;
-      width: 70px; 
+      width: 70px;
       height: 70px;
-      display: flex; 
-      align-items: center; 
+      display: flex;
+      align-items: center;
       justify-content: center;
     }
-    .software-logo {
-      max-width: 50px; 
-      margin-bottom: 0.5rem;
-    }
-    .skill span {
-      display: block; 
-      margin-top: 0.5rem; 
-      font-size: 1.1rem; 
-      font-weight: bold;
-    }
+    .software-logo { max-width: 50px; margin-bottom: 0.5rem; }
+    .skill span { display: block; margin-top: 0.5rem; font-size: 1.1rem; font-weight: bold; }
 
-    /* Sección Sobre mi */
+    /* Sección Sobre mi (Fondo degradado azul → títulos en blanco) */
     #about {
-      background: #fff;
-      color: #333;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      color: #fff;
       min-height: 100vh;
       padding: 14rem 2rem;
     }
@@ -299,39 +270,24 @@
       align-items: center;
       gap: 40px;
     }
-    #about .image {
-      flex: 1; 
-      text-align: center;
-    }
-    #about .image img {
-      max-width: 100%; 
-      height: auto; 
-      border-radius: 10px;
-    }
-    #about .text {
-      flex: 1;
-    }
-    #about .text p {
-      text-align: justify; 
-      line-height: 1.6;
-    }
+    #about .image { flex: 1; text-align: center; }
+    #about .image img { max-width: 100%; height: auto; border-radius: 10px; }
+    #about .text { flex: 1; }
+    #about .text h2 { color: #fff; }
+    #about .text p { text-align: justify; line-height: 1.6; }
     @media (max-width:768px) {
-      #about .container {
-        flex-direction: column;
-      }
+      #about .container { flex-direction: column; }
     }
 
-    /* Sección Portada Redes Sociales */
+    /* Sección Portada Redes Sociales (Fondo blanco → títulos y botones en negro) */
     #portadas {
-      background: linear-gradient(to right, #4facfe, #00f2fe);
-      color: #fff;
+      background: #fff;
+      color: #333;
       min-height: 100vh;
-      transition: padding 2s ease;
       padding: 25rem 2rem;
+      transition: padding 2s ease;
     }
-    #portadas.selected {
-      padding: 6rem 2rem;
-    }
+    #portadas.selected { padding: 6rem 2rem; }
     .portadas-header {
       display: flex;
       flex-direction: column;
@@ -343,26 +299,24 @@
     .portadas-header .portadas-title {
       font-size: 2.5rem;
       font-weight: bold;
+      color: #000;
     }
     .portadas-header select {
       margin-top: 10px;
       font-size: 1rem;
       padding: 5px 10px;
       border-radius: 8px;
-      border: 1px solid #fff;
+      border: 1px solid #000;
       background: transparent;
-      color: #fff;
+      color: #000;
       transition: background 0.5s ease;
     }
     .portadas-header select:hover {
       background: linear-gradient(to right, #fa709a, #fee140);
+      color: #000;
     }
-    .portadas-header select option {
-      color: #FFA500;
-    }
-    .portadas-header select option.placeholder {
-      color: #fff;
-    }
+    .portadas-header select option { color: #000; }
+    .portadas-header select option.placeholder { color: #000; }
     #portadasGallery > div {
       margin-bottom: 100px;
       display: flex;
@@ -388,42 +342,23 @@
       background: #fff;
     }
     @media (max-width:768px) {
-      #portadasGallery > div {
-        margin-bottom: 60px;
-      }
-      .banner-image {
-        max-width: 350px;
-      }
-      .profile-image {
-        width: 90px; 
-        height: 90px;
-        bottom: -30px;
-      }
+      #portadasGallery > div { margin-bottom: 60px; }
+      .banner-image { max-width: 350px; }
+      .profile-image { width: 90px; height: 90px; bottom: -30px; }
     }
 
-    /* Sección Diseño de Redes Sociales */
+    /* Sección Diseño de Redes Sociales (Fondo degradado azul → títulos en blanco) */
     #diseno-redes {
-      background: #fff;
-      color: #333;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      color: #fff;
       min-height: 100vh;
       padding: 25rem 2rem;
       position: relative;
       overflow: hidden;
     }
-    #diseno-redes h2 {
-      text-align: center;
-      position: relative;
-      top: -205px;
-    }
-    .carousel-container {
-      position: relative;
-      overflow: hidden;
-      margin-top: 20px;
-    }
-    .carousel-slider {
-      display: flex;
-      transition: transform 2s ease;
-    }
+    #diseno-redes h2 { text-align: center; position: relative; top: -205px; }
+    .carousel-container { position: relative; overflow: hidden; margin-top: 20px; }
+    .carousel-slider { display: flex; transition: transform 2s ease; }
     .carousel-item {
       min-width: 300px;
       height: 300px;
@@ -440,7 +375,7 @@
     .carousel-prev,
     .carousel-next {
       position: absolute;
-      top: 50%; 
+      top: 50%;
       transform: translateY(-50%);
       background: rgba(0,0,0,0.5);
       color: #fff;
@@ -450,23 +385,16 @@
       cursor: pointer;
       z-index: 100;
     }
-    .carousel-prev {
-      left: 10px;
-    }
-    .carousel-next {
-      right: 10px;
-    }
+    .carousel-prev { left: 10px; }
+    .carousel-next { right: 10px; }
     @media (max-width:768px) {
-      .carousel-prev, 
-      .carousel-next {
-        display: none;
-      }
+      .carousel-prev, .carousel-next { display: none; }
     }
 
-    /* Sección Diseño de Movimiento */
+    /* Sección Diseño de Movimiento (Fondo blanco → títulos en negro) */
     #diseno-mov {
-      background: linear-gradient(to right, #4facfe, #00f2fe);
-      color: #fff;
+      background: #fff;
+      color: #333;
       min-height: 100vh;
       padding: 25rem 2rem;
       display: flex;
@@ -474,13 +402,7 @@
       justify-content: center;
       align-items: center;
     }
-    #diseno-mov h2 {
-      text-align: center;
-      margin-bottom: 1rem;
-      font-size: 2.5rem;
-      position: relative;
-      top: -205px;
-    }
+    #diseno-mov h2 { text-align: center; margin-bottom: 1rem; font-size: 2.5rem; position: relative; top: -205px; color: #000; }
     .diseno-mov-container {
       display: flex;
       justify-content: space-between;
@@ -494,23 +416,13 @@
       overflow: hidden;
       margin-right: 20px;
     }
-    .video-slider {
-      display: flex;
-      transition: transform 0.5s ease;
-    }
-    .video-item {
-      flex: 0 0 100%;
-      height: 300px;
-    }
-    .video-item iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+    .video-slider { display: flex; transition: transform 0.5s ease; }
+    .video-item { flex: 0 0 100%; height: 300px; }
+    .video-item iframe { width: 100%; height: 100%; border: none; }
     .video-prev,
     .video-next {
       position: absolute;
-      top: 50%; 
+      top: 50%;
       transform: translateY(-50%);
       background: rgba(0,0,0,0.5);
       color: #fff;
@@ -520,16 +432,9 @@
       cursor: pointer;
       z-index: 100;
     }
-    .video-prev {
-      left: 10px;
-    }
-    .video-next {
-      right: 10px;
-    }
-    .video-dots {
-      text-align: center;
-      margin-top: 10px;
-    }
+    .video-prev { left: 10px; }
+    .video-next { right: 10px; }
+    .video-dots { text-align: center; margin-top: 10px; }
     .video-dot {
       display: inline-block;
       width: 10px;
@@ -540,43 +445,29 @@
       cursor: pointer;
       transition: background 0.3s ease;
     }
-    .video-dot.active {
-      background: #fa709a;
-    }
+    .video-dot.active { background: #fa709a; }
     .svg-image {
       flex: 1 1 35%;
       text-align: center;
       padding: 10px;
     }
-    .svg-image img {
-      max-width: 100%;
-      height: auto;
-    }
+    .svg-image img { max-width: 100%; height: auto; }
     @media (max-width:768px) {
-      .diseno-mov-container {
-        flex-direction: column;
-        align-items: center;
-      }
+      .diseno-mov-container { flex-direction: column; align-items: center; }
       .video-carousel {
         width: 100%;
         aspect-ratio: 16/9;
         margin-right: 0;
       }
-      .video-item {
-        height: auto;
-      }
-      .svg-image {
-        margin-top: 20px;
-      }
-      .svg-image img {
-        max-width: 220px;
-      }
+      .video-item { height: auto; }
+      .svg-image { margin-top: 20px; }
+      .svg-image img { max-width: 220px; }
     }
 
-    /* Sección Videos en Youtube */
+    /* Sección Videos en Youtube (Fondo degradado azul → títulos en blanco) */
     #otros {
-      background: #fff;
-      color: #333;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      color: #fff;
       min-height: 100vh;
       padding: 15rem 2rem;
     }
@@ -586,21 +477,21 @@
       font-weight: bold;
       margin-bottom: 2rem;
     }
-    /* Layout en PC: dos columnas: iframes a la derecha, texto a la izquierda */
+    /* Layout en PC: dos columnas, en móvil: se apilan verticalmente */
     #otros .otros-content {
-      display: flex; 
-      gap: 40px; 
+      display: flex;
+      gap: 40px;
       align-items: flex-start;
     }
     .video-col {
-      flex: 1; 
-      display: flex; 
-      flex-direction: column; 
+      flex: 1;
+      display: flex;
+      flex-direction: column;
       gap: 20px;
     }
     .video-col iframe {
-      width: 100%; 
-      aspect-ratio: 16/9; 
+      width: 100%;
+      aspect-ratio: 16/9;
       border: none;
     }
     .text-col {
@@ -608,17 +499,14 @@
       padding: 10px;
       text-align: justify;
     }
-    /* En móviles: se apilan los iframes uno debajo del otro, y luego el texto */
     @media (max-width:768px) {
-      #otros .otros-content {
-        flex-direction: column;
-      }
+      #otros .otros-content { flex-direction: column; }
     }
 
-    /* Sección Contacto */
+    /* Sección Contacto (Fondo blanco → títulos en negro) */
     #contact {
-      background: linear-gradient(to right, #4facfe, #00f2fe);
-      color: #fff;
+      background: #fff;
+      color: #333;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -627,37 +515,32 @@
       text-align: center;
       padding: 2rem;
     }
-    #contact h2 {
-      margin-bottom: 1rem;
-    }
-    #contact p {
-      margin-bottom: 20px;
-    }
+    #contact h2 { margin-bottom: 1rem; color: #000; }
+    #contact p { margin-bottom: 20px; }
     .social-links {
       text-align: center;
       margin-top: 20px;
     }
-    .social-icon {
-      display: inline-block;
-      margin: 0 10px;
-      transition: transform 0.3s ease;
-    }
-    .social-icon i {
-      font-size: 21px;
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
-      text-align: center;
-      border: 1px solid #fff;
-      border-radius: 50%;
-      color: #fff;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-    .social-icon:hover i {
-      background: linear-gradient(to right, #fa709a, #fee140);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+	.social-icon {
+	  display: inline-block;
+	  margin: 0 10px;
+	  transition: transform 0.3s ease;
+	}
+	.social-icon i {
+	  font-size: 21px;
+	  width: 40px;
+	  height: 40px;
+	  line-height: 40px;
+	  text-align: center;
+	  border-radius: 50%;
+	  background: #000;  /* Fondo negro */
+	  color: #fff;       /* Ícono blanco */
+	  transition: background 0.3s ease, color 0.3s ease;
+	}
+	.social-icon:hover i {
+	  background: linear-gradient(to right, #fa709a, #fee140);  /* Degradado naranja */
+	  color: #fff; /* Se mantiene en blanco */
+	}
 
     /* Footer */
     footer {
@@ -686,20 +569,34 @@
       object-fit: contain;
       border-radius: 8px;
     }
+	/* Estado inicial: opacidad 0 y desplazada 20px hacia abajo */
+	.section-hidden {
+	  opacity: 0;
+	  transform: translateY(20px);
+	  transition: opacity 0.8s ease, transform 0.8s ease;
+	}
+
+	/* Estado final: opacidad 1 y posición normal */
+	.section-visible {
+	  opacity: 1;
+	  transform: translateY(0);
+	}
+
   </style>
 </head>
 <body>
-  <!-- Header fijo -->
+  <!-- Header -->
   <header id="header">
     <div class="logo">
       <a href="#inicio">
         <img src="Ilustraciones/logo-light.svg" alt="Logo">
       </a>
     </div>
-    <!-- Menú de escritorio -->
+    <!-- Navegación de escritorio -->
     <nav class="desktop-nav">
       <ul>
         <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#skills">Mis Habilidades</a></li>
         <li><a href="#about">Sobre mi</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle">Trabajos</a>
@@ -726,6 +623,7 @@
     <nav>
       <ul>
         <li><a href="#inicio" class="overlay-link">Inicio</a></li>
+        <li><a href="#skills" class="overlay-link">Mis Habilidades</a></li>
         <li><a href="#about" class="overlay-link">Sobre mi</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle">Trabajos</a>
@@ -741,7 +639,7 @@
     </nav>
   </div>
 
-  <!-- Sección Inicio -->
+  <!-- Sección Inicio (Fondo degradado azul) -->
   <section id="inicio">
     <div class="hero-content">
       <div class="hero-text">
@@ -754,47 +652,44 @@
     </div>
   </section>
 
-  <!-- Sección Habilidades -->
+  <!-- Sección Mis Habilidades (Fondo blanco) -->
   <section id="skills">
     <div class="container">
       <h2>Mis Habilidades</h2>
       <div class="skills-wrapper">
-        <!-- Photoshop -->
-        <div class="skill">
-          <div class="circle" style="--percent:0.90;">
-            <div class="inner-text">90%</div>
-          </div>
-          <img src="Ilustraciones/ps_ icon.svg" alt="Photoshop Logo" class="software-logo" />
-          <span>Photoshop</span>
-        </div>
-        <!-- Illustrator -->
+        <!-- Ejemplo: Photoshop -->
         <div class="skill">
           <div class="circle" style="--percent:0.65;">
             <div class="inner-text">65%</div>
           </div>
+          <img src="Ilustraciones/ps_ icon.svg" alt="Photoshop Logo" class="software-logo" />
+          <span>Photoshop</span>
+        </div>
+        <!-- Resto de habilidades (Illustrator, Premiere Pro, After Effects, Audition) -->
+        <div class="skill">
+          <div class="circle" style="--percent:0.70;">
+            <div class="inner-text">70%</div>
+          </div>
           <img src="Ilustraciones/illustrator.svg" alt="Illustrator Logo" class="software-logo" />
           <span>Illustrator</span>
         </div>
-        <!-- Premiere Pro -->
         <div class="skill">
           <div class="circle" style="--percent:0.80;">
             <div class="inner-text">80%</div>
           </div>
-          <img src="Ilustraciones/premiere.svg" alt="Premiere Logo" class="software-logo" />
+          <img src="Ilustraciones/premiere.svg" alt="Premiere Pro Logo" class="software-logo" />
           <span>Premiere Pro</span>
         </div>
-        <!-- After Effects -->
         <div class="skill">
-          <div class="circle" style="--percent:0.85;">
-            <div class="inner-text">85%</div>
+          <div class="circle" style="--percent:0.80;">
+            <div class="inner-text">80%</div>
           </div>
           <img src="Ilustraciones/after-effects.svg" alt="After Effects Logo" class="software-logo" />
           <span>After Effects</span>
         </div>
-        <!-- Audition -->
         <div class="skill">
-          <div class="circle" style="--percent:0.75;">
-            <div class="inner-text">75%</div>
+          <div class="circle" style="--percent:0.50;">
+            <div class="inner-text">50%</div>
           </div>
           <img src="Ilustraciones/audition.svg" alt="Audition Logo" class="software-logo" />
           <span>Audition</span>
@@ -803,7 +698,7 @@
     </div>
   </section>
 
-  <!-- Sección Sobre mi -->
+  <!-- Sección Sobre mi (Fondo degradado azul) -->
   <section id="about">
     <div class="container">
       <div class="image">
@@ -811,26 +706,18 @@
       </div>
       <div class="text">
         <h2>Sobre mi</h2>
-        <p>&nbsp;</p>
-		<p>
-        Soy <strong>Oscar Santiago Roldán</strong>, un realizador audiovisual enérgico y creativo. Desde 2014, estuvo inmerso en el mundo de la producción audiovisual, desarrollando una sólida base en la suite Adobe:<br>
-          <br>
-          <strong> Photoshop:</strong> Creación de visuales atractivos ya medida.<br>
-		  <strong> Premiere Pro:</strong> Edición de vídeo para narraciones claras y dinámicas.<br>
-          <strong> After Effects:</strong> Efectos visuales para añadir un toque innovador y llamativo.<br>
-          <strong> Ilustrador:</strong> Diseño gráfico para comunicación visual efectiva.<br>
-		  <strong> Audition:</strong> Diseño sonoro y edicion de pistas de audio.<br>
-          <br>
-          Actualmente, me encuentro en el noveno semestre de Dirección y Producción de Medios Audiovisuales, preparándome para finalizar mi formación profesional y listo para aplicar mis habilidades en proyectos desafiantes.<br><br>
-          Mi experiencia incluye la gestión de mi propio canal de YouTube, donde perfeccionó mis habilidades de creación de contenido y conexión con audiencias, y la colaboración con organizaciones como <strong>Misión Integral Vasos de Honra</strong>, creando diseños que comunican mensajes de forma impactante.<br>
-          <br>
-          Apasionado por el poder de la imagen para comunicar y emocionar, busca constantemente proyectos donde pueda aportar mi visión creativa y mis habilidades técnicas para generar experiencias visuales memorables.
+        <p>
+          Con más de 11 años de trayectoria en YouTube, mi canal se ha consolidado como un espacio dedicado a la creatividad y el entretenimiento. Ofrezco una amplia gama de contenido divertido, que incluye desde podcasts y videos cómicos hasta experiencias ASMR únicas.
+          <br><br>
+          Mi especialidad reside en la exploración del audio en formatos complejos, una pasión particularmente visible en mi contenido ASMR. Este formato no solo busca proporcionar bienestar al espectador, sino que también sirve como escaparate para mi dominio del audio.
+          <br><br>
+          A través de mi canal, me propongo conectar con la audiencia, proyectando ideas y compartiendo conocimiento de manera entretenida y accesible. Esta larga trayectoria en YouTube se enriquece con mi formación académica en Dirección y Producción de Medios Audiovisuales – casi cinco años de estudio que me permiten fusionar la experiencia práctica con el conocimiento teórico, resultando en contenido de alta calidad y con una visión profesional.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Sección Portada Redes Sociales -->
+  <!-- Sección Portada Redes Sociales (Fondo blanco) -->
   <section id="portadas">
     <div class="container">
       <div class="portadas-header">
@@ -842,12 +729,12 @@
         </select>
       </div>
       <div id="portadasGallery">
-        <!-- Se cargan dinámicamente -->
+        <!-- Se cargarán dinámicamente -->
       </div>
     </div>
   </section>
 
-  <!-- Sección Diseño de Redes Sociales -->
+  <!-- Sección Diseño de Redes Sociales (Fondo degradado azul) -->
   <section id="diseno-redes">
     <div class="container">
       <h2>Diseño de Redes Sociales</h2>
@@ -861,7 +748,7 @@
     </div>
   </section>
 
-  <!-- Sección Diseño de Movimiento -->
+  <!-- Sección Diseño de Movimiento (Fondo blanco) -->
   <section id="diseno-mov">
     <div class="container">
       <h2>Diseño de Movimiento</h2>
@@ -873,7 +760,7 @@
           </div>
           <button class="video-next">&#10095;</button>
           <div class="video-dots" id="videoDots">
-            <!-- Puntos se generan dinámicamente -->
+            <!-- Puntos generados dinámicamente -->
           </div>
         </div>
         <div class="svg-image">
@@ -883,26 +770,19 @@
     </div>
   </section>
 
-  <!-- Sección Videos en Youtube -->
+  <!-- Sección Videos en Youtube (Fondo degradado azul) -->
   <section id="otros">
     <div class="container">
       <h2>Videos en Youtube</h2>
       <br><br>
-      <div class="otros-content">
-        <!-- Columna de videos (2 iframes) -->
-        <div class="video-col">
-          <iframe 
-            src="https://www.youtube.com/embed/videoseries?list=PLAmXMrHo-Wix4OtCBZLe1lvgAZxvkTFSW" 
-            allowfullscreen>
-          </iframe>
-
-          <iframe 
-            src="https://www.youtube.com/embed/videoseries?list=PLAmXMrHo-WixxL-LZ069vL8wSPMXfcWyj" 
-            allowfullscreen>
-          </iframe>
+      <div class="otros-content" style="display: flex; gap: 40px; align-items: flex-start;">
+        <!-- Columna de videos -->
+        <div class="video-col" style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PLAmXMrHo-Wix4OtCBZLe1lvgAZxvkTFSW" allowfullscreen style="aspect-ratio: 16/9; width: 100%;"></iframe>
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PLAmXMrHo-WixxL-LZ069vL8wSPMXfcWyj" allowfullscreen style="aspect-ratio: 16/9; width: 100%;"></iframe>
         </div>
         <!-- Columna de texto -->
-        <div class="text-col">
+        <div class="text-col" style="flex: 1; padding: 10px; text-align: justify;">
           <p>
             Con más de 11 años de trayectoria en YouTube, mi canal se ha consolidado como un espacio dedicado a la creatividad y el entretenimiento. Ofrezco una amplia gama de contenido divertido, que incluye desde podcasts y videos cómicos hasta experiencias ASMR únicas.
             <br><br>
@@ -912,64 +792,134 @@
           </p>
         </div>
       </div>
+      <!-- En móvil, se apilan los iframes y el texto queda debajo -->
+      <style>
+        @media (max-width:768px) {
+          .otros-content { flex-direction: column; }
+        }
+      </style>
     </div>
   </section>
 
-  <!-- Sección Contacto -->
-  <section id="contact">
-    <div class="container">
-      <h2>Contacto</h2>
-      <p>
-        ¿Tienes un proyecto en mente? Escríbeme a:
-        <a href="mailto:oscar07dcontacto@gmail.com" style="color: #fff; text-decoration: underline;">oscar07dcontacto@gmail.com</a>
-      </p>
-      <div class="social-links">
-        <a href="https://www.facebook.com/oscar07dstudio" target="_blank" class="social-icon">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="https://www.youtube.com/oscar07d" target="_blank" class="social-icon">
-          <i class="fab fa-youtube"></i>
-        </a>
-        <a href="https://www.instagram.com/oscar07d" target="_blank" class="social-icon">
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a href="https://co.linkedin.com/in/oscar07d" target="_blank" class="social-icon">
-          <i class="fab fa-linkedin-in"></i>
-        </a>
-        <a href="mailto:oscar07dcontacto@gmail.com" target="_blank" class="social-icon">
-          <i class="fas fa-envelope"></i>
-        </a>
-      </div>
+  <!-- Sección Contacto (Fondo blanco) -->
+<section id="contact">
+  <div class="container">
+    <h2>Contacto</h2>
+    <p>¿Tienes un proyecto en mente? Escríbeme a:
+      <a href="mailto:oscar07dcontacto@gmail.com" style="color: #333; text-decoration: underline;">oscar07dcontacto@gmail.com</a>
+    </p>
+    <div class="social-links">
+      <a href="https://www.facebook.com/oscar07dstudio" target="_blank" class="social-icon">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://www.youtube.com/oscar07d" target="_blank" class="social-icon">
+        <i class="fab fa-youtube"></i>
+      </a>
+      <a href="https://www.instagram.com/oscar07d" target="_blank" class="social-icon">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://co.linkedin.com/in/oscar07d" target="_blank" class="social-icon">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+      <a href="mailto:oscar07dcontacto@gmail.com" target="_blank" class="social-icon">
+        <i class="fas fa-envelope"></i>
+      </a>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2025 OSCAR 07D Studios. Todos los derechos reservados.</p>
+    <p>&copy; 2025 Mi Portafolio. Todos los derechos reservados.</p>
   </footer>
 
   <!-- Modal para imagen ampliada -->
   <div id="modal">
     <img id="modalImg" src="" alt="Imagen Ampliada">
   </div>
-
+	
   <!-- JavaScript -->
   <script>
-    // Botón hamburguesa (móvil)
+	  document.addEventListener("DOMContentLoaded", function() {
+  // Selecciona todas las secciones
+  const sections = document.querySelectorAll("section");
+
+  // Agrega la clase .section-hidden a cada sección inicialmente
+  sections.forEach(section => {
+    section.classList.add("section-hidden");
+  });
+
+  // Configura el Intersection Observer
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Cuando la sección es visible, añade la clase para que se anime
+        entry.target.classList.add("section-visible");
+        observer.unobserve(entry.target); // Se anima solo una vez
+      }
+    });
+  }, { threshold: 0.1 });
+
+  // Observa cada sección
+  sections.forEach(section => {
+    observer.observe(section);
+  });
+});
+
+	  
+	  document.addEventListener("DOMContentLoaded", function() {
+  // Observar cuando la sección "Mis Habilidades" (#skills) es visible
+  const skillsSection = document.getElementById("skills");
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateSkills();
+        observer.unobserve(entry.target); // Animamos solo una vez
+      }
+    });
+  }, { threshold: 0.5 });
+  observer.observe(skillsSection);
+
+  function animateSkills() {
+    const circles = document.querySelectorAll(".skill .circle");
+    circles.forEach(circle => {
+      // Extraer el porcentaje objetivo (valor definido en --percent)
+      const targetPercent = parseFloat(circle.style.getPropertyValue("--percent")) || 0;
+      const innerTextEl = circle.querySelector(".inner-text");
+      const duration = 1500; // Duración de la animación en ms
+      const startTime = performance.now();
+      
+      function animate(time) {
+        const elapsed = time - startTime;
+        let progress = Math.min(elapsed / duration, 1);
+        let currentPercent = progress * targetPercent;
+        let angle = currentPercent * 360;
+        
+        // Actualiza el fondo del círculo con el degradado según el ángulo calculado
+        circle.style.background = `conic-gradient(#fa709a 0deg, #fa709a ${angle}deg, #eee ${angle}deg 360deg)`;
+        
+        // Actualiza el texto interno redondeado en porcentaje
+        innerTextEl.textContent = Math.round(currentPercent * 100) + "%";
+        
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        }
+      }
+      requestAnimationFrame(animate);
+    });
+  }
+});
+    // Hamburguesa y overlay en móvil
     const hamburger = document.getElementById("hamburger");
     const menuOverlay = document.getElementById("menu-overlay");
     hamburger.addEventListener("click", () => {
       menuOverlay.classList.add("active");
     });
-
-    // Cerrar overlay al hacer clic en enlaces
     document.querySelectorAll("#menu-overlay a.overlay-link").forEach(link => {
       link.addEventListener("click", () => {
         menuOverlay.classList.remove("active");
       });
     });
-
-    // Toggle dropdown en overlay
     document.querySelectorAll("#menu-overlay .dropdown-toggle").forEach(item => {
       item.addEventListener("click", function(e) {
         e.preventDefault();
@@ -977,7 +927,7 @@
       });
     });
 
-    // Sección Portada Redes Sociales
+    // Portada Redes Sociales
     var portadasData = {
       "Facebook": [
         { banner: "Imagenes/Banners/Banner Facebook Jòvenes de Honra.png", profile: "Imagenes/Fotos de Perfil/Perfil Jòvenes de Honra.png" },
@@ -986,7 +936,7 @@
         { banner: "Imagenes/Banners/Banner Facebook.png", profile: "Imagenes/Fotos de Perfil/Perfil C3.png" }
       ],
       "YouTube": [
-        { banner: "Imagenes/Banners/Banner Youtube 2025.png" },
+        { banner: "Imagenes/Banners/Banner YouTube.png" },
         { banner: "Imagenes/Banners/Banner Youtube2.png" },
         { banner: "Imagenes/Banners/banner 2023.jpg" },
         { banner: "Imagenes/Banners/Banner de YouTube 2021.jpg" }
@@ -995,7 +945,6 @@
     const portadasSelect = document.getElementById("platformSelect");
     const portadasGallery = document.getElementById("portadasGallery");
     const portadasSection = document.getElementById("portadas");
-
     portadasSelect.addEventListener("change", function() {
       const platform = this.value;
       portadasGallery.innerHTML = "";
@@ -1009,7 +958,6 @@
             container.style.flexDirection = "column";
             container.style.alignItems = "center";
             container.style.position = "relative";
-
             // Banner
             const bannerImg = document.createElement("img");
             bannerImg.src = item.banner;
@@ -1018,8 +966,7 @@
             bannerImg.style.cursor = "pointer";
             bannerImg.addEventListener("click", () => openModal(item.banner));
             container.appendChild(bannerImg);
-
-            // Solo en Facebook añadimos foto de perfil
+            // Solo en Facebook, foto de perfil
             if (platform === "Facebook") {
               const profileImg = document.createElement("img");
               profileImg.src = item.profile;
@@ -1029,7 +976,6 @@
               profileImg.addEventListener("click", () => openModal(item.profile));
               container.appendChild(profileImg);
             }
-
             portadasGallery.appendChild(container);
           });
           portadasSection.classList.add("selected");
@@ -1039,7 +985,7 @@
       }
     });
 
-    // Sección Diseño de Redes Sociales
+    // Diseño de Redes Sociales (Carrusel)
     var disenoRedesData = [
       "Imagenes/Post/publicacines.png",
       "Imagenes/Post/Palabritas.png",
@@ -1084,7 +1030,7 @@
       updateCarousel();
     }, 5000);
 
-    // Sección Diseño de Movimiento
+    // Diseño de Movimiento (Videos)
     var disenoMovVideos = [
       "https://www.youtube.com/embed/OVpHwfVDL_0?si=4avAvvT_OTcBMxrf",
       "https://www.youtube.com/embed/LDKw9iMGZkc?si=CB_5WZPkucPT6LLS",
@@ -1106,7 +1052,6 @@
         iframe.allowFullscreen = true;
         div.appendChild(iframe);
         videoSlider.appendChild(div);
-
         const dot = document.createElement("span");
         dot.className = "video-dot" + (index === 0 ? " active" : "");
         dot.addEventListener("click", () => {
@@ -1134,6 +1079,13 @@
       updateVideoSlider();
     });
 
+    // Sección Videos en Youtube
+    // Esta sección se organiza en dos columnas en PC (texto y videos)
+    // En móvil se apilan verticalmente: primero los videos y luego el texto.
+    // Se asume que los iframes ya tienen aspect-ratio 16:9.
+    // (Los iframes y el texto ya estaban definidos en la versión anterior)
+    // Aquí no se modifica el contenido, solo se ajusta el layout mediante CSS en la sección #otros.
+
     // Modal para ampliar imagen
     const modal = document.getElementById("modal");
     const modalImg = document.getElementById("modalImg");
@@ -1142,9 +1094,7 @@
       modal.style.display = "flex";
     }
     modal.addEventListener("click", (e) => {
-      if (e.target === modal) {
-        modal.style.display = "none";
-      }
+      if (e.target === modal) { modal.style.display = "none"; }
     });
   </script>
 </body>
